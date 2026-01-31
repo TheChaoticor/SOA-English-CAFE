@@ -1,0 +1,122 @@
+/* Container */
+.book-container {
+  width: 100%;
+  min-height: calc(100vh - 260px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Book */
+.book {
+  position: relative;
+
+  /* A4 page size */
+  --page-width: 280px;
+  --page-height: calc(var(--page-width) * 1.414);
+
+  width: calc(var(--page-width) * 2);
+  height: var(--page-height);
+
+  perspective: 2500px;
+}
+
+/* Pages */
+.page-sheet {
+  position: absolute;
+  width: var(--page-width);
+  height: var(--page-height);
+
+  left: 50%;
+  transform-style: preserve-3d;
+  transform-origin: left;
+  transition: transform 0.9s ease;
+}
+
+/* Default (closed book) */
+.book.closed .page-sheet {
+  transform: translateX(-50%) rotateY(0deg);
+}
+
+/* Open + flipped */
+.page-sheet {
+  transform: translateX(-100%) rotateY(0deg);
+}
+
+.page-sheet.flipped {
+  transform: translateX(-100%) rotateY(-180deg);
+}
+
+/* Page faces */
+.page-front,
+.page-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Front page */
+.page-front {
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+
+  /* Backend image safe */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+}
+
+/* Cover page */
+.page-front.cover {
+  background: linear-gradient(135deg, #2a120d, #4a1e14);
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Back page */
+.page-back {
+  background: #f0f0f0;
+  transform: rotateY(180deg);
+}
+
+/* Controls */
+.book-controls {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.book-controls button {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  background: #2a120d;
+  color: #ffffff;
+}
+
+.book-controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.book-controls span {
+  color: #ffffff;
+  font-weight: 500;
+}

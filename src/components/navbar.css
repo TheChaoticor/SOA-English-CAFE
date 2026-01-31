@@ -1,0 +1,220 @@
+/* WRAPPER (centers navbar & gives breathing space) */
+.navbar-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+/* MAIN NAVBAR PILL */
+.navbar {
+  width: 90%;
+  max-width: 1200px;
+  height: 64px;
+
+  /* FINAL: COFFEE BACKGROUND */
+  background-color: var(--coffee-dark);
+
+  border-radius: 40px;
+
+  /* IMPORTANT FOR LOGO CENTERING */
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 36px;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.35),
+    inset 0 1px 1px rgba(255, 255, 255, 0.08);
+}
+
+/* LEFT & RIGHT LISTS */
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* LINKS */
+.nav-left li a,
+.nav-right li a {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+
+  color: rgba(255, 255, 255, 0.9);
+
+  padding: 8px 14px;
+  border-radius: 20px;
+
+  transition:
+    background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.35s ease;
+}
+
+/* HOVER — premium lift */
+.nav-left li a:hover,
+.nav-right li a:hover {
+  background-color: var(--coffee-light);
+  color: var(--white);
+
+  transform: translateY(-3px) scale(1.03);
+
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* KEYBOARD ACCESSIBILITY */
+.nav-left li a:focus-visible,
+.nav-right li a:focus-visible {
+  outline: none;
+  background-color: var(--coffee-light);
+
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.35),
+    0 8px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* CENTER LOGO — PERFECTLY CENTERED */
+.nav-logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-logo img {
+  height: 44px;
+  width: auto;
+  display: block;
+}
+
+/* LOGO HOVER */
+.nav-logo:hover {
+  opacity: 0.95;
+}
+
+/* =========================
+   MOBILE MENU (FINAL)
+   ========================= */
+
+.desktop-only {
+  display: flex;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 26px;
+    color: var(--white);
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 2000;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(42, 26, 20, 0.97);
+    z-index: 1500;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .mobile-menu a {
+    font-size: 18px;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .mobile-menu a:hover {
+    color: var(--red-soft);
+  }
+}
+/* =========================
+   MOBILE MENU (FINAL)
+   ========================= */
+
+.desktop-only {
+  display: flex;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 26px;
+    color: var(--white);
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 2000;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(42, 26, 20, 0.97);
+    z-index: 1500;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .mobile-menu a {
+    font-size: 18px;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .mobile-menu a:hover {
+    color: var(--red-soft);
+  }
+}

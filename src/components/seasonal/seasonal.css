@@ -1,0 +1,84 @@
+/* GLOBAL SEASONAL LAYER */
+.seasonal-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none; /* CRITICAL: UI safe */
+  z-index: 1;
+}
+
+/* Winter placeholder */
+/* =========================
+   WINTER — SNOWFLAKES
+   ========================= */
+
+.snowflake {
+  position: fixed;
+  top: -10px;
+
+  color: rgba(245, 245, 245, 0.9);
+  font-size: 18px;
+
+  filter: blur(0.5px);
+  user-select: none;
+
+  animation-name: snow-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* Gentle falling motion */
+@keyframes snow-fall {
+  from {
+    transform: translateY(-10px);
+  }
+  to {
+    transform: translateY(110vh);
+  }
+}
+
+/* Respect motion sensitivity */
+@media (prefers-reduced-motion: reduce) {
+  .snowflake {
+    display: none;
+  }
+}
+
+
+/* =========================
+   AUTUMN — FALLING LEAVES
+   ========================= */
+
+.leaf {
+  position: fixed;
+  top: -10px;
+
+  font-size: 22px;
+  user-select: none;
+  pointer-events: none;
+
+  filter: blur(0.4px);
+
+  animation-name: leaf-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* Gentle fall + drift */
+@keyframes leaf-fall {
+  0% {
+    transform: translateX(0) translateY(-10px) rotate(0deg);
+  }
+  50% {
+    transform: translateX(40px) translateY(50vh) rotate(180deg);
+  }
+  100% {
+    transform: translateX(-30px) translateY(110vh) rotate(360deg);
+  }
+}
+
+/* Motion-sensitive users */
+@media (prefers-reduced-motion: reduce) {
+  .leaf {
+    display: none;
+  }
+}

@@ -1,0 +1,176 @@
+.contact-wrapper {
+  display: flex;
+  gap: 24px;
+  height: 100%;
+}
+
+/* CAPSULE (already working) */
+.contact-capsule {
+  position: relative;
+  min-height: 480px;
+  width: 100%;
+
+  background-color: rgba(20, 14, 12, 0.96);
+  border-radius: 40px;
+
+  padding: 32px;
+  overflow: hidden;
+}
+
+/* BACKGROUND ILLUSTRATION */
+.contact-capsule::before {
+  content: "";
+  position: absolute;
+  inset: 32px;
+
+  background-image: url("../assets/contact-illustration.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  border-radius: 28px;
+}
+
+/* CONTENT ABOVE IMAGE */
+.contact-content {
+  position: relative; /* important */
+  z-index: 1;
+
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+}
+
+/* LEFT SIDE (kept empty intentionally) */
+
+
+/* RIGHT SIDE FORM PANEL — MATCH REFERENCE */
+.contact-right {
+  align-self: center;
+
+  background: transparent; /* warm off-white like reference */
+  color: #3a241c;
+  margin-left: 16px;
+
+
+  padding: 36px 32px;
+  border-radius: 24px; /* outer rounded only */
+
+  max-width: 380px;
+  width: 100%;
+  height: 95%;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* TEXT */
+.contact-right h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #2a1a14;
+}
+
+.contact-right p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #5a3a2e;
+  margin-bottom: 24px;
+}
+
+/* FORM */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  background: #e9dfd8;
+  border: none;
+
+  padding: 14px 16px;
+  border-radius: 8px;
+
+  color: #2a1a14;
+  font-size: 14px;
+}
+
+.contact-form textarea {
+  min-height: 100px;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #7a5a4a;
+}
+
+
+/* BUTTON */
+.contact-form button {
+  margin-top: 18px;
+
+  background-color: var(--red-primary);
+  color: white;
+
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background-color: var(--red-dark);
+}
+
+/*for phone screen*/
+@media (max-width: 768px) {
+
+  /* Stack illustration + form */
+  .contact-wrapper {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Illustration becomes full width */
+  .contact-illustration {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+  }
+
+  /* Form comes BELOW illustration */
+  .contact-right {
+    width: 100%;
+    height: auto;
+    margin-left: 0;
+    padding: 24px 20px;
+    border-radius: 20px;
+  }
+
+  /* Reduce heading size for phones */
+  .contact-right h1 {
+    font-size: 24px;
+  }
+
+  .contact-right p {
+    font-size: 14px;
+  }
+
+  /* Inputs fit small screens */
+  .contact-right input,
+  .contact-right textarea {
+    font-size: 14px;
+  }
+
+  .contact-right button {
+    width: 100%;
+  }
+}
+
+.page-capsule {
+  overflow: hidden;
+}

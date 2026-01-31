@@ -1,0 +1,117 @@
+.footer {
+  width: 100%;
+  min-height: 100vh; /* full screen footer */
+  background-image: url("../assets/footer-background.png");
+  background-size: cover;            /* fills screen */
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-color: #0b0b0b;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 40px 60px;
+  box-sizing: border-box;
+}
+
+/* ---------- TOP ROW ---------- */
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Brand name */
+.footer-top h3 {
+  color: #b32020;
+  font-weight: 500;
+  font-size: 22px;
+  margin: 0;
+}
+
+/* Social icons */
+.footer-socials {
+  display: flex;
+  gap: 18px;
+}
+
+.footer-socials a {
+  color: #aaa;
+  font-size: 20px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-socials a:hover {
+  color: #b32020;
+  transform: translateY(-2px);
+}
+
+/* ---------- CENTER (NEWSLETTER) ---------- */
+.footer-center {
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: 400px; /* ⬅ lifts newsletter upward */
+}
+
+.footer-center h4 {
+  color: #ddd;
+  font-weight: 400;
+  margin-bottom: 14px;
+}
+
+/* Newsletter */
+.newsletter {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.newsletter input {
+  padding: 12px 14px;
+  width: 280px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.newsletter button {
+  padding: 12px 20px;
+  background-color: #b32020;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.newsletter button:hover {
+  background-color: #8f1919;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .footer {
+    padding: 30px 20px;
+    min-height: 90vh;
+    background-position: center;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-center {
+    margin-bottom: 80px;
+  }
+
+  .newsletter {
+    flex-direction: column;
+  }
+
+  .newsletter input {
+    width: 100%;
+  }
+}

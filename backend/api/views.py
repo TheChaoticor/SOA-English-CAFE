@@ -1,9 +1,36 @@
 from rest_framework import viewsets, status
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
+from django.core.mail import send_mail
 from .models import Document, DocumentPage
 from .serializers import DocumentSerializer, DocumentListSerializer
 from .utils import process_document
+
+@api_view(['POST'])
+def contact_admin(request):
+    name = request.data.get('name')
+    email = request.data.get('email')
+    message = request.data.get('message')
+
+    if not name or not email or not message:
+        return Response({'error': 'All fields are required'}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        # Note: you should configure ADMIN_EMAIL or similar in settings.
+        # This will send the user's email as the from_email, but it might fail SPF checks if real SMPT is used. 
+        # The best practice is to send FROM your own default email, and set the reply_to to the user's email.
+        send_mail(
+            subject=f"New Contact Form Submission from {name}",
+            message=f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}",
+            from_email=None, # Uses DEFAULT_FROM_EMAIL
+            recipient_list=['admin@example.com'], # Using placeholder email, can be updated later
+            fail_silently=False,
+        )
+        return Response({'success': 'Message sent successfully'}, status=status.HTTP_200_OK)
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return Response({'error': 'Failed to send email. Please try again later.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class DocumentViewSet(viewsets.ModelViewSet):
     queryset = Document.objects.all().order_by('-uploaded_at')

@@ -10,15 +10,47 @@ function Newsletter() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [title, setTitle] = useState("");
+  const [newsletters, setNewsletters] = useState([]);
+  const [selectedNewsletterId, setSelectedNewsletterId] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    loadNewsletter();
+    loadNewsletterList();
   }, []);
 
-  const loadNewsletter = async () => {
-    try {
-      const res = await fetch(`${API_BASE}/api/documents/latest/`);
+  useEffect(() => {
+    if (selectedNewsletterId) {
+      loadNewsletter(selectedNewsletterId);
+    }
+  }, [selectedNewsletterId]);
 
+  const loadNewsletterList = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/documents/`);
+      const data = await res.json();
+
+      if (data && data.length > 0) {
+        setNewsletters(data);
+        setSelectedNewsletterId(data[0].id); // Auto-select the latest newsletter
+      } else {
+        setError("No newsletters available yet");
+        setLoading(false);
+      }
+    } catch (err) {
+      console.error("Newsletter list load error:", err);
+      setError("Failed to load newsletter list");
+      setLoading(false);
+    }
+  };
+
+  const loadNewsletter = async (newsletterId) => {
+    setLoading(true);
+    setError("");
+    setIsOpen(false);
+    setCurrentPage(-1);
+
+    try {
+      const res = await fetch(`${API_BASE}/api/documents/${newsletterId}/`);
       const data = await res.json();
 
       console.log("Newsletter data:", data); // DEBUG
@@ -38,6 +70,15 @@ function Newsletter() {
     }
   };
 
+  const handleNewsletterChange = (newsletterId) => {
+    setSelectedNewsletterId(newsletterId);
+    setMenuOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
 
   const nextPage = () => {
     if (!isOpen) {
@@ -46,7 +87,7 @@ function Newsletter() {
       return;
     }
 
-    if (currentPage < pages.length - 1) {
+    if (currentPage < pages.length - 2) {
       setCurrentPage((p) => p + 1);
     }
   };
@@ -78,26 +119,72 @@ function Newsletter() {
         <p>A curated chronicle of words, voices, and moments.</p>
       </div>
 
+      {newsletters.length > 1 && (
+        <div className="newsletter-selector">
+          <button 
+            className="newsletter-menu-toggle"
+            onClick={toggleMenu}
+            disabled={loading}
+          >
+            Select Newsletter
+            <span className={`arrow ${menuOpen ? 'open' : ''}`}>▼</span>
+          </button>
+          
+          {menuOpen && (
+            <div className="newsletter-menu">
+              {newsletters.map((newsletter) => (
+                <div
+                  key={newsletter.id}
+                  className={`newsletter-menu-item ${
+                    newsletter.id === selectedNewsletterId ? 'active' : ''
+                  }`}
+                  onClick={() => handleNewsletterChange(newsletter.id)}
+                >
+                  <div className="newsletter-menu-title">{newsletter.title}</div>
+                  <div className="newsletter-menu-date">
+                    {new Date(newsletter.uploaded_at).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
       <div className="book-container">
         <div className={`book ${isOpen ? "open" : "closed"}`}>
 
-          {/* COVER */}
-          <div
-            className={`page-sheet ${isOpen ? "flipped" : ""}`}
-            style={{ zIndex: pages.length + 1 }}
-          >
-            <div className="page-front cover">
-              {title}
+          {/* Cover*/}
+          {pages.length > 0 && (
+            <div
+              className={`page-sheet ${isOpen ? "flipped" : ""}`}
+              style={{ zIndex: pages.length + 1 }}
+            >
+              <div className="page-front cover">
+                <img
+                  src={pages[0].image}
+                  alt="Cover"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain"
+                  }}
+                />
+              </div>
+              <div className="page-back" />
             </div>
-            <div className="page-back" />
-          </div>
+          )}
 
-          {pages.map((page, index) => (
+          {pages.slice(1).map((page, index) => (
             <div
               key={page.id}
               className={`page-sheet ${isOpen && index < currentPage ? "flipped" : ""
                 }`}
-              style={{ zIndex: pages.length - index }}
+              style={{ zIndex: pages.length - index - 1 }}
             >
               <div className="page-front">
                 <img
@@ -124,7 +211,7 @@ function Newsletter() {
 
           <span>
             {isOpen
-              ? `Page ${currentPage + 1} / ${pages.length}`
+              ? `Page ${currentPage + 2} / ${pages.length}`
               : "Cover"}
           </span>
 

@@ -128,3 +128,14 @@ import os
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Email Configuration
+# Outputs to console by default for testing. To use real email, change EMAIL_BACKEND to 'django.core.mail.backends.smtp.EmailBackend' 
+# and configure EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD with your credentials.
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'englishcafeiter@gmail.com' # Update this
+EMAIL_HOST_PASSWORD = 'nnlzwqfjlqjxitqm' # Update this
+DEFAULT_FROM_EMAIL = 'englishcafeiter@gmail.com' # Update this

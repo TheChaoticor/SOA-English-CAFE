@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../styles/Events.css";
 import { masterEventSheetLink } from "../utils/googleSheetsOptions";
 
 function Events() {
-    const [events, setEvents] = useState([
+    const [events] = useState([
         {
             _id: 1,
             title: "English Speaking Workshop",
@@ -92,7 +92,7 @@ function Events() {
                 eventTitle: selectedEvent.title
             };
 
-            const response = await fetch(masterEventSheetLink, {
+            await fetch(masterEventSheetLink, {
                 method: "POST",
                 // Avoid CORS issues with Google Apps Script Web Apps by sending no-cors
                 mode: "no-cors",
